@@ -1,0 +1,11 @@
+#game{
+    box-shadow: 0px 0px 30px rgba(0,0,0,0.3);
+    border-radius: 6px;
+    margin-top: 50px;
+    margin: auto;
+    width:458px;
+    height:458px;
+}
+.case{
+	background-color: red;
+}
