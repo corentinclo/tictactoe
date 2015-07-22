@@ -1,5 +1,9 @@
 $( document ).ready(function() {
 
+	/*Set the size*/
+
+
+
 	/* The player has the cross X */
 
 	// Table of filled cases
