@@ -15,7 +15,17 @@
 	<div data-role="header" id="title">
 		<h1>Tic-Tac-Toe</h1>
 	</div>
-
+<div>
+<form>
+    <fieldset data-role="controlgroup" data-type="horizontal">
+        <legend>You want to be X or O ?</legend>
+        <input name="radio-choice-h-2" id="radio-choice-h-2a" value="X" checked="checked" type="radio">
+        <label for="radio-choice-h-2a">X</label>
+        <input name="radio-choice-h-2" id="radio-choice-h-2b" value="O" type="radio">
+        <label for="radio-choice-h-2b">O</label>
+    </fieldset>
+</form>
+</div>
     <div role="main" class="ui-content" id="game">
      	<canvas class="case" id="1"></canvas>	
      	<canvas class="case" id="2"></canvas>	
@@ -29,7 +39,7 @@
     </div>
 
 	<div data-role="footer">
-		<button id="reset_button">Reset</button>
+		<button class="ui-shadow ui-btn ui-corner-all" id="reset_button">Reset</button>
 	</div>
 </div>
 </body>
