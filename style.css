@@ -1,22 +1,33 @@
 body{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 	background-color: rgb(241, 242, 246);
-	color: blue;
 }
 #title{
-	text-align: center;
+	color: #3498db;
 }
 #game{
     box-shadow: 0px 0px 30px rgba(0,0,0,0.3);
+    background-color: rgb(241, 242, 246);
     border-radius: 6px;
-    border-color: rgb(241, 242, 246);
     margin-top: 20px;
+    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
-    max-width:458px;
-    max-height:458px;
+    max-width:460px;
+    padding: 0;
+    overflow-x: visible;
 }
 .case{
 	background-color: #f1c40f;
-	max-width:150px;
-	max-height:150px;
+    margin-right: 5px;
+}
+.footer{
+    text-align: center;
+    color: #3498db;
+}
+#title a{
+    background-color: #3498db;
 }
