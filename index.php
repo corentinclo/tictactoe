@@ -28,11 +28,20 @@
         <a href="#" data-rel="close" class="ui-btn ui-corner-all ui-shadow ui-mini ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-right">Close Settings</a>
         <form id="player_form">
           <fieldset data-role="controlgroup" data-type="horizontal">
-              <legend>X or O ?</legend>
+              <legend>Who are you ?</legend>
               <input name="radio-choice-h-2" id="radio-choice-h-2a" value="X" type="radio">
               <label for="radio-choice-h-2a">X</label>
               <input name="radio-choice-h-2" id="radio-choice-h-2b" value="O" checked="checked" type="radio">
               <label for="radio-choice-h-2b">O</label>
+          </fieldset>
+        </form>
+        <form id="begin_form">
+          <fieldset data-role="controlgroup" data-type="horizontal">
+              <legend>Who begins ?</legend>
+              <input name="radio-choice-h-1" id="radio-choice-h-1a" value="X" type="radio">
+              <label for="radio-choice-h-1a">X</label>
+              <input name="radio-choice-h-1" id="radio-choice-h-1b" value="O" checked="checked" type="radio">
+              <label for="radio-choice-h-1b">O</label>
           </fieldset>
         </form>
     </div><!-- /panel -->

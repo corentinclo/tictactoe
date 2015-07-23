@@ -4,8 +4,9 @@ $( document ).ready(function() {
     var player = 'O';
     var computer = 'X';
 
-    console.log("player: "+player);
-    console.log("computer: "+computer);
+    // Who begins ?
+    var begin = $('input[name=radio-choice-h-1]:checked', '#begin_form').val();
+
 	// Table of filled cases
 	var game = [];
 	for (i = 1; i<10; i++) {
@@ -45,29 +46,43 @@ $( document ).ready(function() {
 
     $(window).resize(set_size);
 
+    var can_click = true;
+
     // The human play
     $(".case").click(function() {
-    	var id = $(this).attr('id');
-    	if (!is_filled(id)){
-	    	place(2, id);
-            console.log("player: "+player);
-            console.log("computer: "+computer);
-	    	draw(player,id);
-	    	filledO[id] = true;
-	    	turn += 1;
-	    	var result = is_game_over();
-	    	if (result == 2){alert(player+" win!");}
-	    	else if (result == 3) {alert("It's a draw!");}
-	    	else{
-		    	minimax(0,1);
-		    	draw(computer, computer_move);
-		    	place(1, computer_move);
-		    	filledX[computer_move] = true;
-		    	var result = is_game_over();
-		    	if (result == 1){alert(computer+" win!");}
-		    	else if (result == 3) {alert("It's a draw!");}
-		    }
-	    }
+        if (can_click){
+        	var id = $(this).attr('id');
+        	if (!is_filled(id)){
+    	    	place(2, id);
+    	    	draw(player,id);
+    	    	filledO[id] = true;
+    	    	turn += 1;
+    	    	var result = is_game_over();
+    	    	if (result == 2){
+                    can_click = false;
+                    alert(player+" win!");
+                }
+    	    	else if (result == 3) {
+                    can_click = false;
+                    alert("It's a draw!");
+                }
+    	    	else{
+    		    	minimax(0,1);
+    		    	draw(computer, computer_move);
+    		    	place(1, computer_move);
+    		    	filledX[computer_move] = true;
+    		    	var result = is_game_over();
+    		    	if (result == 1){
+                        can_click = false;
+                        alert(computer+" win!");
+                    }
+    		    	else if (result == 3) {
+                        can_click = false;
+                        alert("It's a draw!");
+                    }
+    		    }
+    	    }
+        }
 	});	
 
     function place (player, acase) {
@@ -231,8 +246,20 @@ $( document ).ready(function() {
         }else{
             computer = 'X';
         }
-        console.log("player: "+player);
-        console.log("computer: "+computer);
+        begin = $('input[name=radio-choice-h-1]:checked', '#begin_form').val();
+        if (begin == computer){
+            var random = Math.floor(Math.random()*10);
+            if (random %2 == 0){
+                random = Math.floor(Math.random()*10);
+                if (random %2 == 0){
+                    random = random+1;
+                }
+            }
+            draw(computer, random);
+            place(1, random);
+            filledX[random] = true;
+        }
+        can_click = true;
 	});
 
     // panel swipe left
