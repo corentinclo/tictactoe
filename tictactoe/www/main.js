@@ -1,10 +1,11 @@
 $( document ).ready(function() {
 
-	/*Set the size*/
+	// X or O by default
+    var player = 'O';
+    var computer = 'X';
 
-
-
-	/* The player has the cross X */
+    // Who begins ?
+    var begin = $('input[name=radio-choice-h-1]:checked', '#begin_form').val();
 
 	// Table of filled cases
 	var game = [];
@@ -24,27 +25,64 @@ $( document ).ready(function() {
     var x = cases[1].width / 2;
     var y = cases[1].height / 2;
 
+    /*Set the size*/
+    var set_size = function() {
+        // game
+        var game_width = $('#game').width();
+        $('#game').height(game_width);
+
+        // cases
+        var max_width = Math.floor((game_width-10)/3);
+        $('.case').css('max-width', max_width);
+        $('.case').height($('.case').width());
+
+        // 3,6,9 margin-right
+        $('#3').css('margin-right', '0px');
+        $('#6').css('margin-right', '0px');
+        $('#9').css('margin-right', '0px');
+
+    }
+    $(window).load(set_size);
+
+    $(window).resize(set_size);
+
+    var can_click = true;
+
     // The human play
     $(".case").click(function() {
-    	var id = $(this).attr('id');
-    	if (!is_filled(id)){
-	    	place(2, id);
-	    	draw('O',id);
-	    	filledO[id] = true;
-	    	turn += 1;
-	    	var result = is_game_over();
-	    	if (result == 2){alert("O win!");}
-	    	else if (result == 3) {alert("It's a draw!");}
-	    	else{
-		    	minimax(0,1);
-		    	draw('X', computer_move);
-		    	place(1, computer_move);
-		    	filledX[computer_move] = true;
-		    	var result = is_game_over();
-		    	if (result == 1){alert("X win!");}
-		    	else if (result == 3) {alert("It's a draw!");}
-		    }
-	    }
+        if (can_click){
+        	var id = $(this).attr('id');
+        	if (!is_filled(id)){
+    	    	place(2, id);
+    	    	draw(player,id);
+    	    	filledO[id] = true;
+    	    	turn += 1;
+    	    	var result = is_game_over();
+    	    	if (result == 2){
+                    can_click = false;
+                    alert(player+" win!");
+                }
+    	    	else if (result == 3) {
+                    can_click = false;
+                    alert("It's a draw!");
+                }
+    	    	else{
+    		    	minimax(0,1);
+    		    	draw(computer, computer_move);
+    		    	place(1, computer_move);
+    		    	filledX[computer_move] = true;
+    		    	var result = is_game_over();
+    		    	if (result == 1){
+                        can_click = false;
+                        alert(computer+" win!");
+                    }
+    		    	else if (result == 3) {
+                        can_click = false;
+                        alert("It's a draw!");
+                    }
+    		    }
+    	    }
+        }
 	});	
 
     function place (player, acase) {
@@ -52,7 +90,7 @@ $( document ).ready(function() {
     }
 
     function draw (letter, acase){
-    	context[acase].font = '80pt Arial';
+        context[acase].font = '80pt Arial';
 	    context[acase].textAlign = 'center';
 	    context[acase].textBaseline = 'middle';
 		context[acase].fillStyle = '#3498db';
@@ -151,7 +189,7 @@ $( document ).ready(function() {
                 max = Math.max(current_score, max);
                 
                 if(depth == 0) {
-                	console.log("Score for position "+value+" = "+current_score);
+                	//console.log("Score for position "+value+" = "+current_score);
                 }
 
                 if(current_score >= 0){
@@ -191,7 +229,7 @@ $( document ).ready(function() {
     }
 
 	// Reset the game
-	$("#reset_button").click(function() {
+	$("#new-game-button").click(function() {
 		game = [];
 		filledX = [];
 		filledO = [];
@@ -202,7 +240,41 @@ $( document ).ready(function() {
 			filledO[i] = false;
 			filledX[i] = false;
 		}
+        player = $('input[name=radio-choice-h-2]:checked', '#player_form').val();
+        if (player == 'X'){
+            computer = 'O';
+        }else{
+            computer = 'X';
+        }
+        begin = $('input[name=radio-choice-h-1]:checked', '#begin_form').val();
+        if (begin == computer){
+            var random = Math.floor(Math.random()*10);
+            if (random %2 == 0){
+                random = Math.floor(Math.random()*10);
+                if (random %2 == 0){
+                    random = random+1;
+                }
+            }
+            draw(computer, random);
+            place(1, random);
+            filledX[random] = true;
+        }
+        can_click = true;
 	});
+
+    // panel swipe left
+    $( document ).on( "pagecreate", "#main_page", function() {
+        $( document ).on( "swiperight", "#main_page", function( e ) {
+            // We check if there is no open panel on the page because otherwise
+            // a swipe to close the left panel would also open the right panel (and v.v.).
+            // We do this by checking the data that the framework stores on the page element (panel: open).
+            if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+                if ( e.type === "swiperight" ) {
+                    $( "#left-panel" ).panel( "open" );
+                }
+            }
+        });
+    });
 });
 //End
 
