@@ -28,6 +28,8 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
@@ -35,34 +37,50 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
 	<link rel="stylesheet" href="style.css">
   	<link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
-  	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  	<script src="jquery-1.11.3.min.js"></script>
  	 <script src="main.js"></script>
   	<script src="jquery.mobile-1.4.5.min.js"></script>
         <title>Tic Tac Toe</title>
     </head>
     <body>
-<div data-role="page">
+<div data-role="page" id="main_page" data-url="main_page">
 
-	<div data-role="header" id="title">
-		<h1>Tic-Tac-Toe</h1>
-	</div>
+  	<div data-role="header" id="title">
+  		<h1>Tic-Tac-Toe</h1>
+      <a href="#left-panel" data-icon="carat-r" data-iconpos="notext" data-shadow="false" data-iconshadow="false" class="ui-nodisc-icon">Settings</a>
+  	</div><!-- /header -->
 
-	<div role="main" class="ui-content" id="game">
-     		<canvas class="case" id="1"></canvas>	
-	     	<canvas class="case" id="2"></canvas>	
-	     	<canvas class="case" id="3"></canvas>	
-	     	<canvas class="case" id="4"></canvas>	
-	     	<canvas class="case" id="5"></canvas>		
-	     	<canvas class="case" id="6"></canvas>	
-	     	<canvas class="case" id="7"></canvas>		
-	     	<canvas class="case" id="8"></canvas>	
-	     	<canvas class="case" id="9"></canvas>
-    </div>
-	<div data-role="footer">
-		<button class="ui-shadow ui-btn ui-corner-all" id="reset_button">Reset</button>
-	</div>
+    <div role="main" class="ui-content" id="game">
+     	<canvas class="case" id="1"></canvas><canvas class="case" id="2"></canvas><canvas class="case" id="3"></canvas>	
+     	<canvas class="case" id="4"></canvas><canvas class="case" id="5"></canvas><canvas class="case" id="6"></canvas>	
+     	<canvas class="case" id="7"></canvas><canvas class="case" id="8"></canvas><canvas class="case" id="9"></canvas>
+    </div><!-- /content -->
+
+    <div data-role="panel" id="left-panel" data-theme="b">
+        <a href="#" data-rel="close" class="ui-btn ui-corner-all ui-shadow ui-mini ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-right">Close Settings</a>
+        <form id="player_form">
+          <fieldset data-role="controlgroup" data-type="horizontal">
+              <legend>Who are you ?</legend>
+              <input name="radio-choice-h-2" id="radio-choice-h-2a" value="X" type="radio">
+              <label for="radio-choice-h-2a">X</label>
+              <input name="radio-choice-h-2" id="radio-choice-h-2b" value="O" checked="checked" type="radio">
+              <label for="radio-choice-h-2b">O</label>
+          </fieldset>
+        </form>
+        <form id="begin_form">
+          <fieldset data-role="controlgroup" data-type="horizontal">
+              <legend>Who begins ?</legend>
+              <input name="radio-choice-h-1" id="radio-choice-h-1a" value="X" type="radio">
+              <label for="radio-choice-h-1a">X</label>
+              <input name="radio-choice-h-1" id="radio-choice-h-1b" value="O" checked="checked" type="radio">
+              <label for="radio-choice-h-1b">O</label>
+          </fieldset>
+        </form>
+    </div><!-- /panel -->
+
+  	<div data-role="footer" class="footer">
+  		<button class="ui-shadow ui-btn ui-corner-all" id="new-game-button">New game</button>
+  	</div><!-- /footer -->
 </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
