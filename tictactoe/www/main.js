@@ -49,7 +49,7 @@ $( document ).ready(function() {
     var can_click = true;
 
     // The human play
-    $(".case").click(function() {
+    $(".case").on("tap", function() {
         if (can_click){
         	var id = $(this).attr('id');
         	if (!is_filled(id)){
